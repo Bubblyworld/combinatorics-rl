@@ -29,7 +29,8 @@ with open(os.sys.argv[1], 'rb') as f:
 
 for i in range(5):
     G = to_graph(best_species[i])
-    print(f"{i}: diam {nxa.diameter(G)}, girth {girth(G)}, moore {moore_coefficient(G)}")
+    degrees = list(map(lambda x: x[1], G.degree))
+    print(f"{i}: diam {nxa.diameter(G)}, girth {girth(G)}, min_deg {min(degrees)}, max_deg {max(degrees)}, moore {moore_coefficient(G)}")
 
     plt.subplot(1,5,i+1)
     nx.draw_kamada_kawai(G)

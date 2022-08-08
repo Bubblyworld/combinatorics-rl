@@ -33,7 +33,7 @@ print()
 N = 10   #number of vertices in the graph. Only used in the reward function, not directly relevant to the algorithm 
 DECISIONS = int(N*(N-1)/2)  #The length of the word we are generating. If we are generating a graph, we create a 0-1 word of length (N choose 2)
 
-LEARNING_RATE = 0.0001 #Increase this to make convergence faster, decrease if the algorithm gets stuck in local optima too often.
+LEARNING_RATE = 0.001 #Increase this to make convergence faster, decrease if the algorithm gets stuck in local optima too often.
 n_sessions =1000 #number of new sessions per iteration
 percentile = 93 #top 100-X percentile we are learning from
 super_percentile = 94 #top 100-X percentile that survives to next iteration
