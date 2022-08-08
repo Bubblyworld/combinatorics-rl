@@ -24,6 +24,7 @@ import math
 import matplotlib.pyplot as plt
 import networkx as nx
 import networkx.algorithms as nxa
+from rewards import moore_coefficient_for_degree
 
 print("Available GPU devices for Tensorflow:")
 print(tf.config.list_physical_devices('GPU'))
@@ -71,6 +72,8 @@ model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate = LEARNING
 print(model.summary())
 print()
 
+K = 3 # regularity coefficient
+moore_coefficient = moore_coefficient_for_degree(K)
 
 def calc_score(state):
     """
@@ -87,12 +90,7 @@ def calc_score(state):
                 G.add_edge(i,j)
             count += 1
 
-    # Must be connected:
-    if not (nx.is_connected(G)):
-        return -INF
-
-    # Example, compute the diameter of the graph divided by the size:
-    return nxa.diameter(G) / G.size()
+    return moore_coefficient(G)
 
 
 #### No need to change anything below here. 
@@ -203,7 +201,7 @@ fit_time = 0
 score_time = 0
 myRand = random.randint(0,1000) #used in the filename
 
-for i in range(1000): #1000 generations should be plenty
+for i in range(10000): #10000 generations should be plenty
     print(f"Generation {i}:")
 
     games, actions, total_score = sample(model, n_sessions)
